@@ -38,5 +38,12 @@ arregloDeNombres.forEach(
 
     }
 );
-arregloDeNombresDos = [ ]
+const arregloDeNombresDos = [ 'E', 'F', 'G', 'H'];
+const resultado = arregloDeNombre
+    .map(
+        valorActual=>{
+            return valorActual + '.';
+        }
+    );
+console.log (resultado);
 
