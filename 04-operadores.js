@@ -117,3 +117,81 @@ const arregloNumeros = [2, 3, 1, 5, 6, 4, 7, 8, 9, 10];
 const resultadoFilter = arregloNumeros
 .filter(valorActual => valorActual  > 3);
 console.log (resultadoFilter);
+//every
+
+const resultadoEvery= arregloNumeros
+.every(n => n > 0);
+console.log(resultadoEvery);
+
+const resultadoReduceV2 = arregloNumeros.reduce((a,b) => a+ b, 0);
+const resultadoFilter = arregloNumeros
+    .filter(n => (n % 2) === 0);
+
+console.log(resultadoFilter);
+
+// Triple igual
+
+if ('' === 0) {
+    console.log('Es verdad');
+} else {
+    console.log('Es falso');
+}
+
+// Every
+
+const resultadoEvery = arregloNumeros
+    .every(n => n > 1); // Si cumple TODOS TRUE / FALSE
+
+console.log(resultadoEvery);
+
+// Some
+
+const resultadoSome = arregloNumeros
+    .some(n => n < 0); // Si uno cumple condicion TRUE / FALSE
+
+console.log(resultadoSome);
+
+// findIndex
+
+const resultadoFindIndex = arregloNumeros
+    .findIndex(n => n === 7);
+
+console.log(resultadoFindIndex);
+console.log(arregloNumeros.indexOf(7));
+
+// find
+
+const resultadoFind = arregloNumeros
+    .find(n => n === 7);
+
+// reduce
+
+const resultadoReduce = arregloNumeros
+    .reduce(
+        (valorActualDelNumero, valorActualDelArreglo) => {  // 1er parametro una funcion
+            return valorActualDelNumero - valorActualDelArreglo;
+        },
+        100  // Acepta un valor
+    );
+console.log(resultadoReduce);
+
+const resultadoReduceV2 = arregloNumeros.reduceRight((a, b, indice) => {
+    if (indice > 4) {
+        return a + b;
+    } else {
+        return a;
+    }
+}, 0);
+
+console.log(resultadoReduceV2);
+
+// SORT
+
+const clonArregloNumeros = JSON.parse(JSON.stringify(arregloNumeros));
+
+const resultadoSort = arregloNumeros.sort((a, b) => a - b);
+
+const resultadoSortV2 = clonArregloNumeros.sort((a, b) => b - a);
+
+console.log(resultadoSort);
+console.log(resultadoSortV2);
