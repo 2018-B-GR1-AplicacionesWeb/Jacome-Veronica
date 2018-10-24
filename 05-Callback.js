@@ -1,13 +1,20 @@
 const fs = require ('fs');
+console.log('Inicio');
 fs.readFile('04-operadores.js',
     'utf-8',
     (error, contenidoArchivo)=>{
     if (error){
         console.error(error);
-        throw new Error(error);
+
+        try {
+            throw new Error(error);
+        }
+    catch (e) {
+        console.log(e);
     }
-    else {
-        console.log(contenidoArchivo);
+    console.log('Extra')
+    } else {
+        console.log('Si sirvio', contenidoArchivo);
     }
-    }
-    );
+    });
+onsole.log('Fin');
