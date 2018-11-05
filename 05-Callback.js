@@ -17,4 +17,4 @@ fs.readFile('04-operadores.js',
         console.log('Si sirvio', contenidoArchivo);
     }
     });
-onsole.log('Fin');
+Console.log('Fin');

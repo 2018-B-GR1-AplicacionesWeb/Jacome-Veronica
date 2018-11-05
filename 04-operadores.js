@@ -117,17 +117,7 @@ const arregloNumeros = [2, 3, 1, 5, 6, 4, 7, 8, 9, 10];
 const resultadoFilter = arregloNumeros
 .filter(valorActual => valorActual  > 3);
 console.log (resultadoFilter);
-//every
 
-const resultadoEvery= arregloNumeros
-.every(n => n > 0);
-console.log(resultadoEvery);
-
-const resultadoReduceV2 = arregloNumeros.reduce((a,b) => a+ b, 0);
-const resultadoFilter = arregloNumeros
-    .filter(n => (n % 2) === 0);
-
-console.log(resultadoFilter);
 
 // Triple igual
 
