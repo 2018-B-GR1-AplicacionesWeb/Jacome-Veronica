@@ -1,4 +1,4 @@
-// npm i -g typescript
+//npm i -g typescript
 const nombre:string = 'Vero';
 const edad:number = 12;
 const nada = null;
