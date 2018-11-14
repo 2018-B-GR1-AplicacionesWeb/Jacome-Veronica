@@ -1,12 +1,12 @@
 
-import {menu2} from "./OpcionesPapeleria";
+import {opcion2} from "./OpcionesPapeleria";
 declare var  require;
 let inquirer = require('inquirer');
 let fs = require('fs');
 
 inquirer
     .prompt(
-        menu2
+        opcion2
     )
     .then(
         (respuesta)=>[
