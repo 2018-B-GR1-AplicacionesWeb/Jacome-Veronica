@@ -1,11 +1,10 @@
 "use strict";
 exports.__esModule = true;
-exports.papeleria = function (arregloPapeleria, nuevoElemento) {
-    arregloPapeleria.push(nuevoElemento);
-    return new Promise(function (resolve, reject) {
-        resolve(arregloPapeleria);
-        reject({
-            mensaje: 'Elemento no agregado'
-        });
-    });
-};
+var OpcionesPapeleria_1 = require("./OpcionesPapeleria");
+var inquirer = require('inquirer');
+var fs = require('fs');
+inquirer
+    .prompt(OpcionesPapeleria_1.menu2)
+    .then(function (respuesta) { return [
+    console.log(respuesta)
+]; });

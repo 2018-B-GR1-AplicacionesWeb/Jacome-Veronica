@@ -1,10 +1,9 @@
 
-import {menu2} from "./Menu";
-
+import {menu2} from "./OpcionesPapeleria";
+declare var  require;
 let inquirer = require('inquirer');
 let fs = require('fs');
 
-//console.log (menuPrincipal);
 inquirer
     .prompt(
         menu2

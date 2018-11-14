@@ -1,11 +1,11 @@
-import {from} from "rxjs";
+//import {from} from "rxjs";
 
 export const opcionesMenu=
     [
-        'crear',
-        'borrar',
-        'actualizar',
-        'leer'
+        'Crear',
+        'Borrar',
+        'Actualizar',
+        'Buscar'
     ]
 export const menu=[
     {
