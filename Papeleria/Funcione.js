@@ -1,7 +1,7 @@
 var inquirer = require('inquirer');
 var fs = require('fs');
 var articulos = [
-    'Papel', 'Cuadernos', 'Esferos', 'Lapiz', 'Correctores'
+    'Papel', 'Cuadernos', 'Esferos', 'Lapiz', 'Correctores', 'Reglas', 'Borradores', 'Marcadores', 'Laminas', 'Regalos', 'Aretes'
 ];
 var tipoServicio = [
     'Copias', 'Impresiones', 'Articulos de Papeleria', 'Articulos de Bazar', 'Fotos',

@@ -1,24 +1,24 @@
 "use strict";
 //import {from} from "rxjs";
 exports.__esModule = true;
-exports.opcionesMenu = [
+exports.opciones = [
     'Crear',
     'Borrar',
     'Actualizar',
     'Buscar'
 ];
-exports.menu = [
+exports.opcion1 = [
     {
         type: 'input',
         name: 'opcionMenuSeleccionado',
         message: 'Escoja Opcion'
     }
 ];
-exports.menu2 = [
+exports.opcion2 = [
     {
         type: 'list',
         name: 'opcionMenuSeleccionado2',
         message: 'Escoja Opcion',
-        choices: exports.opcionesMenu
+        choices: exports.opciones
     }
 ];
