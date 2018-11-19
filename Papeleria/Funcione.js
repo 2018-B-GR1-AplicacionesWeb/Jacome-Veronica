@@ -1,7 +1,7 @@
 var inquirer = require('inquirer');
 var fs = require('fs');
 var articulos = [
-    'Papel', 'Cuadernos', 'Esferos', 'Lapiz', 'Correctores', 'Reglas', 'Borradores', 'Marcadores', 'Laminas', 'Regalos', 'Aretes'
+    'Papel', 'Cuadernos', 'Esferos', 'Lápiz', 'Correctores', 'Reglas', 'Borradores', 'Marcadores', 'Láminas', 'Regalos', 'Aretes'
 ];
 var tipoServicio = [
     'Copias', 'Impresiones', 'Articulos de Papeleria', 'Articulos de Bazar', 'Fotos',
@@ -113,3 +113,18 @@ var buscar = function (nombreDelArchivo) {
         });
     });
 };
+function crearBDD() {
+    const contenidoInicialBDD = '{""}'
+    return new Promise()
+}
+
+function inicializarBase() {
+    const leerBDD$ = rxjs.from(leerBDD());
+    leerBDD$
+        .pipe(
+            mergeMap(
+                (respuesta)
+            )
+        )
+    return new Promise()
+}
