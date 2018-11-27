@@ -1,1 +1,1 @@
-{"usuarios":[{"id":1,"nombre":"Adrian"},{"id":"1","nombre":"Adrian"},{"id":"2","nombre":"Vero"},{"id":"1","nombre":"V"}],"mascotas":[{"idUsuario":1,"nombre":"Cachetes","id":1}]}
+{"articulos":[{"id":"1","nombre":"lapiz","precioCompra":"23","precioVenta":"45","cantidad":"2"}]}

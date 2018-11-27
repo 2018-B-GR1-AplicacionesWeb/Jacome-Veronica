@@ -18,28 +18,27 @@ const preguntaUsuario = [
     {
         type: 'input',
         name: 'id',
-        message: 'Cual es el id de Artículo'
+        message: 'Cual es tu id'
     },
     {
         type: 'input',
         name: 'nombre',
-        message: 'Cual es tu nombre de Artículo'
+        message: 'Cual es tu nombre'
     },
+];
+const preguntaUsuarioBusquedaPorNombre = [
     {
         type: 'input',
-        name: 'precioCompra',
-        message: 'Ingrese precio de compra'
-    },
+        name: 'nombre',
+        message: 'Escribe el nombre del usuario a buscar'
+    }
+];
+const preguntaUsuarioNuevoNombre = [
     {
         type: 'input',
-        name: 'precioVenta',
-        message: 'Ingrese precio de venta al público'
-    },
-    {
-        type: 'input',
-        name: 'cantidad',
-        message: 'Ingrese la cantidad del Artículo'
-    },
+        name: 'nombre',
+        message: 'Escribe tu nuevo nombre'
+    }
 ];
 function main() {
     console.log('Empezo');
@@ -67,10 +66,7 @@ function main() {
             default:
                 respuesta.usuario = {
                     id: null,
-                    nombre: null,
-                    precioCompra: null,
-                    precioVenta: null,
-                    cantidad: null
+                    nombre: null
                 };
                 rxjs.of(respuesta);
         }
@@ -79,8 +75,8 @@ function main() {
         //console.log('respuesta en accion', respuesta);
         switch (respuesta.respuestaUsuario.opcionMenu) {
             case 'Crear':
-                const articulo = respuesta.usuario;
-                respuesta.respuestaBDD.bdd.articulos.push(articulo);
+                const usuario = respuesta.usuario;
+                respuesta.respuestaBDD.bdd.usuarios.push(usuario);
                 return respuesta;
         }
     }), // Guardar Base de Datos
@@ -95,6 +91,27 @@ function main() {
         console.log('Completado');
         main();
     });
+    /*
+    const respuesta = await inquirer.prompt(preguntaMenu);
+    switch (respuesta.opcionMenu) {
+        case 'Crear':
+            const respuestaUsuario = await inquirer.prompt(preguntaUsuario);
+            await anadirUsuario(respuestaUsuario);
+            main();
+            break;
+        case 'Actualizar':
+            const respuestaUsuarioBusquedaPorNombre = await inquirer.prompt(preguntaUsuarioBusquedaPorNombre);
+            const existeUsuario = await buscarUsuarioPorNombre(respuestaUsuarioBusquedaPorNombre.nombre);
+            if (existeUsuario) {
+                const respuestaNuevoNombre = await inquirer.prompt(preguntaUsuarioNuevoNombre);
+                await editarUsuario(respuestaUsuarioBusquedaPorNombre.nombre, respuestaNuevoNombre.nombre);
+            } else {
+                console.log('El usuario no existe');
+                main();
+                break;
+            }
+    }
+    */
 }
 function inicializarBase() {
     const leerBDD$ = rxjs.from(leerBDD());
@@ -109,6 +126,27 @@ function inicializarBase() {
             return rxjs.from(crearBDD());
         }
     }));
+    /*
+    return new Promise(
+        (resolve, reject) => {
+            fs.readFile('bdd.json', 'utf-8',
+                (err, contenido) => {
+                    if (err) {
+                        fs.writeFile('bdd.json',
+                            '{"usuarios":[],"mascotas":[]}',
+                            (err) => {
+                                if (err) {
+                                    reject({mensaje: 'Error'});
+                                }
+                                resolve({mensaje: 'ok'});
+                            });
+                    } else {
+                        resolve({mensaje: 'ok'});
+                    }
+                });
+        }
+    );
+    */
 }
 function preguntarMenu() {
     return rxjs.from(inquirer.prompt(preguntaMenu));
@@ -132,7 +170,7 @@ function leerBDD() {
     });
 }
 function crearBDD() {
-    const contenidoInicialBDD = '{"articulos":[]}';
+    const contenidoInicialBDD = '{"usuarios":[],"mascotas":[]}';
     return new Promise((resolve, reject) => {
         fs.writeFile('bdd.json', contenidoInicialBDD, (err) => {
             if (err) {
@@ -144,7 +182,7 @@ function crearBDD() {
             else {
                 resolve({
                     mensaje: 'BDD creada',
-                    bdd: JSON.parse('{"articulos":[]}')
+                    bdd: JSON.parse('{"usuarios":[],"mascotas":[]}')
                 });
             }
         });
@@ -181,14 +219,14 @@ function anadirUsuario(usuario) {
                         reject(err);
                     }
                     else {
-                        resolve({ mensaje: 'Artículo Creado' });
+                        resolve({ mensaje: 'Usuario Creado' });
                     }
                 });
             }
         });
     });
 }
-function editarArticulo(nombre, nuevoNombre) {
+function editarUsuario(nombre, nuevoNombre) {
     return new Promise((resolve, reject) => {
         fs.readFile('bdd.json', 'utf-8', (err, contenido) => {
             if (err) {

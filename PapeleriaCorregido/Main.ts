@@ -1,9 +1,10 @@
-declare var require: any;
+declare var  require;
 const inquirer = require('inquirer');
 const fs = require('fs');
 const rxjs = require('rxjs');
 const mergeMap = require('rxjs/operators').mergeMap;
 const map = require('rxjs/operators').map;
+
 const preguntaMenu = {
     type: 'list',
     name: 'opcionMenu',
@@ -15,32 +16,35 @@ const preguntaMenu = {
         'Actualizar',
     ]
 };
+
 const preguntaUsuario = [
     {
         type: 'input',
         name: 'id',
-        message: 'Cual es el id de Artículo'
+        message: 'Cual es tu id'
     },
     {
         type: 'input',
         name: 'nombre',
-        message: 'Cual es tu nombre de Artículo'
+        message: 'Cual es tu nombre'
     },
+];
+
+const preguntaUsuarioBusquedaPorNombre = [
     {
         type: 'input',
-        name: 'precioCompra',
-        message: 'Ingrese precio de compra'
-    },
+        name: 'nombre',
+        message: 'Escribe el nombre del usuario a buscar'
+    }
+];
+
+
+const preguntaUsuarioNuevoNombre = [
     {
         type: 'input',
-        name: 'precioVenta',
-        message: 'Ingrese precio de venta al público'
-    },
-    {
-        type: 'input',
-        name: 'cantidad',
-        message: 'Ingrese la cantidad del Artículo'
-    },
+        name: 'nombre',
+        message: 'Escribe tu nuevo nombre'
+    }
 ];
 
 function main() {
@@ -83,10 +87,7 @@ function main() {
                         default:
                             respuesta.usuario = {
                                 id: null,
-                                nombre: null,
-                                precioCompra: null,
-                                precioVenta: null,
-                                cantidad: null
+                                nombre: null
                             };
                             rxjs.of(respuesta)
 
@@ -98,8 +99,8 @@ function main() {
                     //console.log('respuesta en accion', respuesta);
                     switch (respuesta.respuestaUsuario.opcionMenu) {
                         case 'Crear':
-                            const articulo = respuesta.usuario;
-                            respuesta.respuestaBDD.bdd.articulos.push(articulo)
+                            const usuario = respuesta.usuario;
+                            respuesta.respuestaBDD.bdd.usuarios.push(usuario)
                             return respuesta;
 
                     }
@@ -122,6 +123,30 @@ function main() {
                 main();
             }
         )
+
+
+    /*
+    const respuesta = await inquirer.prompt(preguntaMenu);
+    switch (respuesta.opcionMenu) {
+        case 'Crear':
+            const respuestaUsuario = await inquirer.prompt(preguntaUsuario);
+            await anadirUsuario(respuestaUsuario);
+            main();
+            break;
+        case 'Actualizar':
+            const respuestaUsuarioBusquedaPorNombre = await inquirer.prompt(preguntaUsuarioBusquedaPorNombre);
+            const existeUsuario = await buscarUsuarioPorNombre(respuestaUsuarioBusquedaPorNombre.nombre);
+            if (existeUsuario) {
+                const respuestaNuevoNombre = await inquirer.prompt(preguntaUsuarioNuevoNombre);
+                await editarUsuario(respuestaUsuarioBusquedaPorNombre.nombre, respuestaNuevoNombre.nombre);
+            } else {
+                console.log('El usuario no existe');
+                main();
+                break;
+            }
+    }
+    */
+
 }
 
 function inicializarBase() {
@@ -142,6 +167,29 @@ function inicializarBase() {
                 }
             )
         );
+
+
+    /*
+    return new Promise(
+        (resolve, reject) => {
+            fs.readFile('bdd.json', 'utf-8',
+                (err, contenido) => {
+                    if (err) {
+                        fs.writeFile('bdd.json',
+                            '{"usuarios":[],"mascotas":[]}',
+                            (err) => {
+                                if (err) {
+                                    reject({mensaje: 'Error'});
+                                }
+                                resolve({mensaje: 'ok'});
+                            });
+                    } else {
+                        resolve({mensaje: 'ok'});
+                    }
+                });
+        }
+    );
+    */
 }
 
 
@@ -175,8 +223,9 @@ function leerBDD(){
         }
     );
 }
+
 function crearBDD() {
-    const contenidoInicialBDD = '{"articulos":[]}';
+    const contenidoInicialBDD = '{"usuarios":[],"mascotas":[]}';
     return new Promise(
         (resolve, reject) => {
             fs.writeFile(
@@ -191,7 +240,7 @@ function crearBDD() {
                     } else {
                         resolve({
                             mensaje: 'BDD creada',
-                            bdd: JSON.parse('{"articulos":[]}')
+                            bdd: JSON.parse('{"usuarios":[],"mascotas":[]}')
                         });
                     }
 
@@ -247,7 +296,7 @@ function anadirUsuario(usuario) {
                                 if (err) {
                                     reject(err);
                                 } else {
-                                    resolve({mensaje: 'Artículo Creado'});
+                                    resolve({mensaje: 'Usuario Creado'});
                                 }
                             }
                         );
@@ -256,7 +305,8 @@ function anadirUsuario(usuario) {
         }
     );
 }
-function editarArticulo(nombre, nuevoNombre) {
+
+function editarUsuario(nombre, nuevoNombre) {
     return new Promise(
         (resolve, reject) => {
             fs.readFile('bdd.json', 'utf-8',
@@ -327,16 +377,19 @@ interface RespuestaBDD {
 }
 
 interface BaseDeDatos {
-    articulos: Articulos[];
-
+    usuarios: Usuario[];
+    mascotas: Mascota[];
 }
 
-interface Articulos {
+interface Usuario {
     id: number;
     nombre: string;
-    precioCompra: number;
-    precioVenta: number;
-    cantidad: number;
+}
+
+interface Mascota {
+    id: number;
+    nombre: string;
+    idUsuario: number;
 }
 
 interface OpcionesPregunta {
@@ -346,5 +399,5 @@ interface OpcionesPregunta {
 interface RespuestaUsuario {
     respuestaUsuario: OpcionesPregunta,
     respuestaBDD: RespuestaBDD
-    usuario?: Articulos
+    usuario?: Usuario
 }
