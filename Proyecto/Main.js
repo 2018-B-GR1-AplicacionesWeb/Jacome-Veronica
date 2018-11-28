@@ -41,6 +41,13 @@ const preguntaUsuario = [
         message: 'Ingrese la cantidad del Artículo'
     },
 ];
+const preguntaActualizar = [
+    {
+        type: 'input',
+        name: 'buscarArticulo',
+        message: 'Cual es el Artículo que desea editar'
+    },
+];
 function main() {
     console.log('Empezo');
     inicializarBase()
@@ -62,6 +69,13 @@ function main() {
                     .from(inquirer.prompt(preguntaUsuario))
                     .pipe(map((usuario) => {
                     respuesta.usuario = usuario;
+                    return respuesta;
+                }));
+            case 'Actualizar':
+                return rxjs
+                    .from(inquirer.prompt(preguntaActualizar))
+                    .pipe(map((nombre, nuevoNombre) => {
+                    respuesta.usuario = nuevoNombre;
                     return respuesta;
                 }));
             default:

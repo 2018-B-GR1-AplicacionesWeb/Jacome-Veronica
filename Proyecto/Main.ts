@@ -42,7 +42,13 @@ const preguntaUsuario = [
         message: 'Ingrese la cantidad del Artículo'
     },
 ];
-
+const preguntaActualizar = [
+    {
+        type: 'input',
+        name: 'buscarArticulo',
+        message: 'Cual es el Artículo que desea editar'
+    },
+];
 function main() {
     console.log('Empezo');
 
@@ -80,6 +86,18 @@ function main() {
                                     )
                                 );
 
+
+                        case 'Actualizar':
+                            return rxjs
+                                .from(inquirer.prompt(preguntaActualizar))
+                                .pipe(
+                                    map(
+                                        (nombre, nuevoNombre) => {
+                                            respuesta.usuario = nuevoNombre;
+                                            return respuesta
+                                        }
+                                    )
+                                );
                         default:
                             respuesta.usuario = {
                                 id: null,
@@ -90,7 +108,10 @@ function main() {
                             };
                             rxjs.of(respuesta)
 
+
                     }
+
+
                 }
             ), // Ejecutar Accion
             map(
@@ -235,11 +256,7 @@ function anadirUsuario(usuario) {
                         reject({mensaje: 'Error leyendo'});
                     } else {
                         const bdd = JSON.parse(contenido);
-
-
                         bdd.usuarios.push(usuario);
-
-
                         fs.writeFile(
                             'bdd.json',
                             JSON.stringify(bdd),
@@ -265,13 +282,12 @@ function editarArticulo(nombre, nuevoNombre) {
                         reject({mensaje: 'Error leyendo'});
                     } else {
                         const bdd = JSON.parse(contenido);
-
-
                         const indiceUsuario = bdd.usuarios
                             .findIndex(
                                 (usuario) => {
                                     return usuario.nombre = nombre;
                                 }
+
                             );
 
                         bdd.usuarios[indiceUsuario].nombre = nuevoNombre;
